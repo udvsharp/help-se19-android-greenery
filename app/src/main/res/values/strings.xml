@@ -18,4 +18,9 @@
     <string name="title_devices">Devices</string>
     <string name="title_profile">Profile</string>
     <string name="title_notifications">Notifications</string>
+    <string name="invalid_role">Can\'t be empty!</string>
+    <string name="invalid_org">Can\'t be empty!</string>
+    <string name="register_failed">Register failed</string>
+    <string name="prompt_email">Email</string>
+    <string name="invalid_email">Not a valid email!</string>
 </resources>

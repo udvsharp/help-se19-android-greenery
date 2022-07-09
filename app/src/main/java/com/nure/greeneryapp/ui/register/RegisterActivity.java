@@ -1,4 +1,4 @@
-package com.nure.greeneryapp.ui.login;
+package com.nure.greeneryapp.ui.register;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,23 +13,25 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.nure.greeneryapp.MainActivity;
 import com.nure.greeneryapp.R;
-import com.nure.greeneryapp.databinding.ActivityLoginBinding;
-import com.nure.greeneryapp.ui.register.RegisterActivity;
+import com.nure.greeneryapp.databinding.ActivityRegisterBinding;
 import com.nure.greeneryapp.util.PrefsUtils;
 
-public class LoginActivity extends AppCompatActivity {
+// TODO: fix bad request error
+public class RegisterActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
     private PrefsUtils prefsUtils;
 
-    private LoginViewModel loginViewModel;
-    private ActivityLoginBinding binding;
+    private RegisterViewModel registerViewModel;
+    private @NonNull
+    ActivityRegisterBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,37 +54,48 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Init for draw
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
+                .get(RegisterViewModel.class);
 
         // Vars
         final EditText usernameEditText = binding.username;
         final EditText surnameEditText = binding.usersurname;
+        final EditText emailEditText = binding.email;
         final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
+        final EditText roleEditText = binding.role;
+        final EditText organizationEditText = binding.organization;
         final Button registerButton = binding.register;
         final ProgressBar loadingProgressBar = binding.loading;
 
-        loginViewModel.getLoginFormState().observe(this, loginFormState -> {
+        registerViewModel.getRegisterFormState().observe(this, loginFormState -> {
             if (loginFormState == null) {
                 return;
             }
-            loginButton.setEnabled(loginFormState.isDataValid());
+            registerButton.setEnabled(loginFormState.isDataValid());
             if (loginFormState.getUsernameError() != null) {
                 usernameEditText.setError(getString(loginFormState.getUsernameError()));
             }
             if (loginFormState.getSurnameError() != null) {
                 surnameEditText.setError(getString(loginFormState.getSurnameError()));
             }
+            if (loginFormState.getEmailError() != null) {
+                emailEditText.setError(getString(loginFormState.getEmailError()));
+            }
             if (loginFormState.getPasswordError() != null) {
                 passwordEditText.setError(getString(loginFormState.getPasswordError()));
             }
+            if (loginFormState.getRoleError() != null) {
+                roleEditText.setError(getString(loginFormState.getRoleError()));
+            }
+            if (loginFormState.getOrganizationError() != null) {
+                organizationEditText.setError(getString(loginFormState.getOrganizationError()));
+            }
         });
 
-        loginViewModel.getLoginResult().observe(this, loginResult -> {
+        registerViewModel.getLoginResult().observe(this, loginResult -> {
             if (loginResult == null) {
                 return;
             }
@@ -110,43 +123,46 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(
+                registerViewModel.registerDataChanged(
                         usernameEditText.getText().toString(),
                         surnameEditText.getText().toString(),
-                        passwordEditText.getText().toString()
+                        passwordEditText.getText().toString(),
+                        emailEditText.getText().toString(),
+                        roleEditText.getText().toString(),
+                        organizationEditText.getText().toString()
                 );
             }
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+        roleEditText.addTextChangedListener(afterTextChangedListener);
+        organizationEditText.addTextChangedListener(afterTextChangedListener);
+
+        organizationEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
+                registerViewModel.register(
                         usernameEditText.getText().toString(),
                         surnameEditText.getText().toString(),
-                        passwordEditText.getText().toString()
+                        passwordEditText.getText().toString(),
+                        emailEditText.getText().toString(),
+                        roleEditText.getText().toString(),
+                        organizationEditText.getText().toString()
                 );
             }
             return false;
         });
 
-        loginButton.setOnClickListener(v -> {
+        registerButton.setOnClickListener(v -> {
             loadingProgressBar.setVisibility(View.VISIBLE);
-            loginViewModel.login(
+            registerViewModel.register(
                     usernameEditText.getText().toString(),
                     surnameEditText.getText().toString(),
-                    passwordEditText.getText().toString()
+                    passwordEditText.getText().toString(),
+                    emailEditText.getText().toString(),
+                    roleEditText.getText().toString(),
+                    organizationEditText.getText().toString()
             );
         });
-
-        registerButton.setOnClickListener(v -> {
-            proceedToRegisterActivity();
-        });
-    }
-
-    private void proceedToRegisterActivity() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
     }
 
     private void proceedToMainActivity() {
@@ -154,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
+    private void updateUiWithUser(RegisteredUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         prefsUtils.saveToken(model.getToken());
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();

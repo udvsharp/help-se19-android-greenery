@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nure.greeneryapp.R;
-import com.nure.greeneryapp.adapter.MyDeviceRecyclerViewAdapter;
+import com.nure.greeneryapp.adapter.DeviceRecyclerViewAdapter;
 import com.nure.greeneryapp.ui.placeholder.PlaceholderContent;
 
 /**
@@ -66,7 +66,7 @@ public class DevicesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyDeviceRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new DeviceRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
         return view;
     }

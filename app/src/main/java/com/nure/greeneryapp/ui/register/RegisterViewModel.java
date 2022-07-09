@@ -1,4 +1,4 @@
-package com.nure.greeneryapp.ui.login;
+package com.nure.greeneryapp.ui.register;
 
 import android.util.Log;
 import android.util.Patterns;
@@ -12,35 +12,34 @@ import com.nure.greeneryapp.R;
 import com.nure.greeneryapp.rest.RestApi;
 import com.nure.greeneryapp.rest.api.AuthService;
 import com.nure.greeneryapp.rest.model.LoggedInUser;
-import com.nure.greeneryapp.rest.model.LoginInfo;
 import com.nure.greeneryapp.rest.model.RegisterInfo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginViewModel extends ViewModel {
+public class RegisterViewModel extends ViewModel {
     private static final String ERR_MSG_NOT_FOUND = "User Not found.";
 
-    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
-    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
+    private MutableLiveData<RegisterFormState> registerFormState = new MutableLiveData<>();
+    private MutableLiveData<RegisterResult> loginResult = new MutableLiveData<>();
     AuthService service;
 
-    LoginViewModel(AuthService service) {
+    RegisterViewModel(AuthService service) {
         this.service = service;
     }
 
-    LiveData<LoginFormState> getLoginFormState() {
-        return loginFormState;
+    LiveData<RegisterFormState> getRegisterFormState() {
+        return registerFormState;
     }
 
-    LiveData<LoginResult> getLoginResult() {
+    LiveData<RegisterResult> getLoginResult() {
         return loginResult;
     }
 
-    public void login(String username, String surname, String password) {
+    public void register(String username, String surname, String password, String email, String role, String organization) {
         Call<LoggedInUser> call = service
-                .Login(new LoginInfo(username, surname, password));
+                .Register(new RegisterInfo(username, surname, password, email, role, organization));
         call.enqueue(new Callback<LoggedInUser>() {
             @Override
             public void onResponse(@NonNull Call<LoggedInUser> call, @NonNull Response<LoggedInUser> response) {
@@ -52,8 +51,8 @@ public class LoginViewModel extends ViewModel {
                 }
 
                 Log.d(RestApi.TAG_EXT, body.getToken());
-                loginResult.setValue(new LoginResult(
-                        new LoggedInUserView(
+                loginResult.setValue(new RegisterResult(
+                        new RegisteredUserView(
                                 body.getName(),
                                 body.getToken()
                         )
@@ -63,38 +62,50 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onFailure(@NonNull Call<LoggedInUser> call, @NonNull Throwable t) {
                 Log.d(RestApi.TAG_EXT, String.valueOf(t.getMessage()));
-                loginResult.setValue(new LoginResult(R.string.login_failed));
+                loginResult.setValue(new RegisterResult(R.string.register_failed));
             }
         });
     }
 
     private void handleError(Response<LoggedInUser> response) {
         Log.w(RestApi.TAG_EXT, "Login failed: " + response.code());
-        loginResult.setValue(new LoginResult(R.string.login_failed));
+        loginResult.setValue(new RegisterResult(R.string.login_failed));
     }
 
-    public void loginDataChanged(String username, String surname, String password) {
+    public void registerDataChanged(String username, String surname, String password, String email, String role, String organization) {
         Integer usernameError = null;
         Integer surnameError = null;
         Integer passwordError = null;
+        Integer emailError = null;
+        Integer roleError = null;
+        Integer organizationError = null;
         boolean flag = true;
 
         if (!isUserNameValid(username)) {
             usernameError = R.string.invalid_username;
+            flag = false;
         } else if (!isPasswordValid(password)) {
             passwordError = R.string.invalid_password;
             flag = false;
         } else if (!isUserNameValid(surname)) {
             surnameError = R.string.invalid_surname;
             flag = false;
+        } else if(email.isEmpty()) {
+            emailError = R.string.invalid_email;
+            flag = false;
+        } else if (role.isEmpty()) {
+            roleError = R.string.invalid_role;
+            flag = false;
+        } else if (organization.isEmpty()) {
+            organizationError = R.string.invalid_org;
+            flag = false;
         }
 
         if (flag) {
-            loginFormState.setValue(new LoginFormState(true));
+            registerFormState.setValue(new RegisterFormState(true));
         } else {
-            loginFormState.setValue(new LoginFormState(usernameError, surnameError, passwordError));
+            registerFormState.setValue(new RegisterFormState(usernameError, surnameError, passwordError, emailError, roleError, organizationError));
         }
-
     }
 
     // A placeholder username validation check

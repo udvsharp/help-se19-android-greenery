@@ -38,10 +38,6 @@ public class RestApi {
         return sInstance;
     }
 
-    public void addAuthInterceptor() {
-
-    }
-
     public Retrofit client() {
         return retrofit;
     }

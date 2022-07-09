@@ -1,34 +1,49 @@
-package com.nure.greeneryapp.ui.login;
+package com.nure.greeneryapp.ui.register;
 
 import androidx.annotation.Nullable;
 
 /**
  * Data validation state of the login form.
  */
-class LoginFormState {
+class RegisterFormState {
     @Nullable
     private Integer usernameError;
     @Nullable
     private Integer passwordError;
     @Nullable
     private Integer surnameError;
+    @Nullable
+    private Integer roleError;
+    @Nullable
+    private Integer organizationError;
+    @Nullable
+    private Integer emailError;
     private boolean isDataValid;
 
-    LoginFormState(
+    RegisterFormState(
             @Nullable Integer usernameError,
             @Nullable Integer surnameError,
-            @Nullable Integer passwordError
+            @Nullable Integer passwordError,
+            @Nullable Integer emailError,
+            @Nullable Integer roleError,
+            @Nullable Integer organizationError
     ) {
         this.usernameError = usernameError;
         this.surnameError = surnameError;
         this.passwordError = passwordError;
+        this.emailError = emailError;
+        this.roleError = roleError;
+        this.organizationError = organizationError;
         this.isDataValid = false;
     }
 
-    LoginFormState(boolean isDataValid) {
+    RegisterFormState(boolean isDataValid) {
         this.usernameError = null;
         this.surnameError = null;
         this.passwordError = null;
+        this.emailError = null;
+        this.roleError = null;
+        this.organizationError = null;
         this.isDataValid = isDataValid;
     }
 
@@ -45,6 +60,21 @@ class LoginFormState {
     @Nullable
     Integer getSurnameError() {
         return surnameError;
+    }
+
+    @Nullable
+    public Integer getRoleError() {
+        return roleError;
+    }
+
+    @Nullable
+    public Integer getOrganizationError() {
+        return organizationError;
+    }
+
+    @Nullable
+    public Integer getEmailError() {
+        return emailError;
     }
 
     boolean isDataValid() {

@@ -12,6 +12,10 @@ public class RegisterInfo {
     @Expose
     private final String surname;
 
+    @SerializedName("password")
+    @Expose
+    private final String password;
+
     @SerializedName("email")
     @Expose
     private final String email;
@@ -24,9 +28,10 @@ public class RegisterInfo {
     @Expose
     private final String organizationName;
 
-    public RegisterInfo(String name, String surname, String email, String roleName, String organizationName) {
+    public RegisterInfo(String name, String surname, String password, String email, String roleName, String organizationName) {
         this.name = name;
         this.surname = surname;
+        this.password = password;
         this.email = email;
         this.roleName = roleName;
         this.organizationName = organizationName;
@@ -34,6 +39,10 @@ public class RegisterInfo {
 
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getSurname() {
