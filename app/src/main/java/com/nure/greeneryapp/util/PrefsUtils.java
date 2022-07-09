@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PrefsUtils {
-    private static PrefsUtils sInstance;
-
-    private static final String PREFS_KEY_TOKEN = "token";
     public static final String AUTH_DATA_PREFS = "AuthData";
-
+    private static final String PREFS_KEY_TOKEN = "token";
+    private static PrefsUtils sInstance;
     private Context context;
     private SharedPreferences authPrefs;
 

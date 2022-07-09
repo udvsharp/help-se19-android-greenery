@@ -13,16 +13,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApi {
+    public static final String TAG_EXT = "Retrofit-Networking-Ext";
+    public static final String TAG_IN = "Retrofit-Networking-In";
     private static RestApi sInstance;
     private Retrofit retrofit = null;
 
-    public static final String TAG_EXT = "Retrofit-Networking-Ext";
-    public static final String TAG_IN = "Retrofit-Networking-In";
-
     private RestApi() {
         OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new AuthInterceptor())
-            .build();
+                .addInterceptor(new AuthInterceptor())
+                .build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.147.61:3000")

@@ -13,7 +13,6 @@ import com.nure.greeneryapp.rest.RestApi;
 import com.nure.greeneryapp.rest.api.AuthService;
 import com.nure.greeneryapp.rest.model.LoggedInUser;
 import com.nure.greeneryapp.rest.model.LoginInfo;
-import com.nure.greeneryapp.rest.model.RegisterInfo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,10 +20,9 @@ import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
     private static final String ERR_MSG_NOT_FOUND = "User Not found.";
-
+    AuthService service;
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-    AuthService service;
 
     LoginViewModel(AuthService service) {
         this.service = service;

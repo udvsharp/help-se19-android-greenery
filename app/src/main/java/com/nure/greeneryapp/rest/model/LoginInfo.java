@@ -16,6 +16,12 @@ public class LoginInfo {
     @Expose
     String password;
 
+    public LoginInfo(String name, String surname, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
@@ -26,11 +32,5 @@ public class LoginInfo {
 
     public String getPassword() {
         return password;
-    }
-
-    public LoginInfo(String name, String surname, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.password = password;
     }
 }

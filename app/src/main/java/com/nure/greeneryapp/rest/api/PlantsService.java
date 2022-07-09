@@ -9,13 +9,15 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface PlantsService {
-    @GET("api/plants/organization/{id}") // TODO: auth?
+    @GET("api/plants/organization/{id}")
+        // TODO: auth?
     Call<List<Plant>> GetOrganizationPlants(
             @Path("id") String orgId // TODO: String?
     );
 
-    @GET("api/plants/{id}") // TODO: auth? // TODO: is it right endpoint?
+    @GET("api/plants/{id}")
+        // TODO: auth? // TODO: is it right endpoint?
     Call<List<Plant>> GetPlantsByUser(
-        @Path("id") String userId
+            @Path("id") String userId
     );
 }

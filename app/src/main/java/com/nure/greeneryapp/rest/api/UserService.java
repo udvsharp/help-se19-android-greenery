@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface UserService {
-    @GET("api/users/me") // TODO: add auth
+    @GET("api/users/me")
+        // TODO: add auth
     Call<UserProfile> GetUserProfile();
 }

@@ -20,10 +20,9 @@ import retrofit2.Response;
 
 public class RegisterViewModel extends ViewModel {
     private static final String ERR_MSG_NOT_FOUND = "User Not found.";
-
+    AuthService service;
     private MutableLiveData<RegisterFormState> registerFormState = new MutableLiveData<>();
     private MutableLiveData<RegisterResult> loginResult = new MutableLiveData<>();
-    AuthService service;
 
     RegisterViewModel(AuthService service) {
         this.service = service;
@@ -90,7 +89,7 @@ public class RegisterViewModel extends ViewModel {
         } else if (!isUserNameValid(surname)) {
             surnameError = R.string.invalid_surname;
             flag = false;
-        } else if(email.isEmpty()) {
+        } else if (email.isEmpty()) {
             emailError = R.string.invalid_email;
             flag = false;
         } else if (role.isEmpty()) {

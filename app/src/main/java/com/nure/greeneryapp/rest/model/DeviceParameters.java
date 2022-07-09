@@ -1,12 +1,12 @@
 package com.nure.greeneryapp.rest.model;
 
 public class DeviceParameters {
-    private String id;
     Integer co2Level;
     Integer groundHumidity;
     Integer airHumidity;
     Integer airTemperature;
     Integer lightLevel;
+    private String id;
 
     public DeviceParameters(String id, Integer co2Level, Integer groundHumidity, Integer airHumidity, Integer airTemperature, Integer lightLevel) {
         this.id = id;
