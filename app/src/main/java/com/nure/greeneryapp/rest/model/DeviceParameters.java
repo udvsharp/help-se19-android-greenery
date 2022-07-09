@@ -1,12 +1,33 @@
 package com.nure.greeneryapp.rest.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class DeviceParameters {
-    Integer co2Level;
-    Integer groundHumidity;
-    Integer airHumidity;
-    Integer airTemperature;
-    Integer lightLevel;
+
+    @Expose
+    @SerializedName("id")
     private String id;
+
+    @Expose
+    @SerializedName("co2_level")
+    private Integer co2Level;
+
+    @Expose
+    @SerializedName("ground_humidity")
+    private Integer groundHumidity;
+
+    @Expose
+    @SerializedName("air_humidity")
+    private Integer airHumidity;
+
+    @Expose
+    @SerializedName("air_temperature")
+    private Integer airTemperature;
+
+    @Expose
+    @SerializedName("light_level")
+    private Integer lightLevel;
 
     public DeviceParameters(String id, Integer co2Level, Integer groundHumidity, Integer airHumidity, Integer airTemperature, Integer lightLevel) {
         this.id = id;

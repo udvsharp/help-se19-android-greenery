@@ -14,7 +14,7 @@ public interface SpeciesService {
 
     @GET("api/species/{id}")
     Call<Species> GetSpeciesById(
-            @Path("id") Integer speciesId
+            @Path("id") String speciesId
     );
 
     @GET("api/species/{name}")
