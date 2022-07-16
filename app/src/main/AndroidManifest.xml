@@ -18,7 +18,7 @@
         android:theme="@style/Theme.GreeneryApp"
         tools:targetApi="31">
         <activity
-            android:name=".EditParamsActivity"
+            android:name=".ui.EditParamsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -39,7 +39,8 @@
             android:name=".ui.register.RegisterActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:noHistory="true"></activity>
+            android:noHistory="true" />
+
     </application>
 
 </manifest>

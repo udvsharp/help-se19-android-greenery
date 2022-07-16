@@ -1,6 +1,7 @@
 package com.nure.greeneryapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.nure.greeneryapp.rest.api.DevicesService;
 import com.nure.greeneryapp.rest.model.Device;
 import com.nure.greeneryapp.rest.model.DeviceParameters;
 import com.nure.greeneryapp.rest.model.Plant;
+import com.nure.greeneryapp.ui.EditParamsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,10 +102,15 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
         }
 
         public void bindTo(Device item) {
+            DevicesService service = RestApi.getInstance().Devices();
+
             this.item = item;
+            int position = getAbsoluteAdapterPosition();
             Plant plant = item.getPlant();
             DeviceParameters parameter = item.getParameter();
             DeviceParameters targetParameters = null;
+            Device value = devices.get(position);
+
             boolean hasTarget = !item.isAvailable();
 
             Context context = root.getContext();
@@ -178,10 +185,18 @@ public class DeviceRecyclerViewAdapter extends RecyclerView.Adapter<DeviceRecycl
                 targetLightLevelView.setText("Light Level: " + targetParameters.getLightLevel());
             }
 
+            if (hasTarget) {
+                // Edit on click
+                DeviceParameters finalTargetParameters = targetParameters;
+                root.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, EditParamsActivity.class);
+                    intent.putExtra("target", finalTargetParameters.getId());
+                    context.startActivity(intent);
+                });
+            }
+
+            // Delete on long click
             root.setOnLongClickListener(view -> {
-                DevicesService service = RestApi.getInstance().Devices();
-                int position = getAbsoluteAdapterPosition();
-                Device value = devices.get(position);
 
                 service.DeleteDevice(value.getId()).enqueue(new Callback<Void>() {
                     @Override

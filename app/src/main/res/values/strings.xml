@@ -23,4 +23,10 @@
     <string name="register_failed">Register failed</string>
     <string name="prompt_email">Email</string>
     <string name="invalid_email">Not a valid email!</string>
+    <string name="prompt_co2">CO2 Level</string>
+    <string name="prompt_ground_humidity">Ground Humidity</string>
+    <string name="action_update">Update</string>
+    <string name="prompt_air_humidity">Air Humidity</string>
+    <string name="prompt_air_temp">Air Temperature</string>
+    <string name="prompt_light_level">Light Level</string>
 </resources>

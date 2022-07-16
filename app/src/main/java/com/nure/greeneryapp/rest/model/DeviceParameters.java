@@ -61,4 +61,28 @@ public class DeviceParameters {
     public Integer getLightLevel() {
         return lightLevel;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCo2Level(Integer co2Level) {
+        this.co2Level = co2Level;
+    }
+
+    public void setGroundHumidity(Integer groundHumidity) {
+        this.groundHumidity = groundHumidity;
+    }
+
+    public void setAirHumidity(Integer airHumidity) {
+        this.airHumidity = airHumidity;
+    }
+
+    public void setAirTemperature(Integer airTemperature) {
+        this.airTemperature = airTemperature;
+    }
+
+    public void setLightLevel(Integer lightLevel) {
+        this.lightLevel = lightLevel;
+    }
 }

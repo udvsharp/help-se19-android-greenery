@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.nure.greeneryapp.rest.api.AuthService;
 import com.nure.greeneryapp.rest.api.DevicesService;
+import com.nure.greeneryapp.rest.api.ParametersService;
 import com.nure.greeneryapp.rest.api.UserService;
 import com.nure.greeneryapp.util.PrefsUtils;
 
@@ -59,6 +60,10 @@ public class RestApi {
 
     public DevicesService Devices() {
         return retrofit.create(DevicesService.class);
+    }
+
+    public ParametersService Parameters() {
+        return retrofit.create(ParametersService.class);
     }
 
     private static class AuthInterceptor implements Interceptor {
