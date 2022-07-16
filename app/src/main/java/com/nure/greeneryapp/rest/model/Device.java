@@ -1,5 +1,7 @@
 package com.nure.greeneryapp.rest.model;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,12 +15,17 @@ public class Device {
     private boolean working;
 
     @Expose
+    @Nullable
     @SerializedName("Plant")
     private Plant plant;
 
     @Expose
     @SerializedName("Parameter")
     private DeviceParameters parameter;
+
+    public boolean isAvailable() {
+        return plant == null;
+    }
 
     public Device(String id, boolean working, Plant plant, DeviceParameters parameter) {
         this.id = id;

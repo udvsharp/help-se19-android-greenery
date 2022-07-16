@@ -26,7 +26,7 @@ public class Plant {
         return id;
     }
 
-    public Species getSpeciesId() {
+    public Species getSpecies() {
         return speciesId;
     }
 

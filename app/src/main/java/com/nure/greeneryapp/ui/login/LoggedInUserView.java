@@ -1,18 +1,21 @@
 package com.nure.greeneryapp.ui.login;
 
-/**
- * Class exposing authenticated user details to the UI.
- */
 class LoggedInUserView {
     private final String displayName;
     private final String token;
+    private final String organizationId;
 
-    LoggedInUserView(String displayName, String token) {
+    LoggedInUserView(String displayName, String token, String orgId) {
         this.displayName = displayName;
         this.token = token;
+        this.organizationId = orgId;
     }
 
-    String getDisplayName() {
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public String getDisplayName() {
         return displayName;
     }
 

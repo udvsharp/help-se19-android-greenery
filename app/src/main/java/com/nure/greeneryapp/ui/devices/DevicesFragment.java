@@ -2,54 +2,49 @@ package com.nure.greeneryapp.ui.devices;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nure.greeneryapp.adapter.DeviceRecyclerViewAdapter;
 import com.nure.greeneryapp.databinding.FragmentDevicesBinding;
-import com.nure.greeneryapp.ui.placeholder.PlaceholderContent;
+import com.nure.greeneryapp.rest.RestApi;
+import com.nure.greeneryapp.rest.api.DevicesService;
+import com.nure.greeneryapp.rest.model.Device;
+import com.nure.greeneryapp.rest.model.DeviceResponse;
+import com.nure.greeneryapp.util.PrefsUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
  */
 public class DevicesFragment extends Fragment {
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
     private FragmentDevicesBinding binding;
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    DevicesService service;
+    private RecyclerView recyclerView;
+    private DeviceRecyclerViewAdapter adapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public DevicesFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static DevicesFragment newInstance(int columnCount) {
-        DevicesFragment fragment = new DevicesFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        service = RestApi.getInstance().Devices();
+        fillItems();
     }
 
     @Override
@@ -60,14 +55,45 @@ public class DevicesFragment extends Fragment {
 
         // Set the adapter
         Context context = root.getContext();
-        RecyclerView recyclerView = binding.list;
-        if (mColumnCount <= 1) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        }
-        recyclerView.setAdapter(new DeviceRecyclerViewAdapter(PlaceholderContent.ITEMS));
+        recyclerView = binding.list;
+        adapter = new DeviceRecyclerViewAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fillItems();
+    }
+
+    private void fillItems() {
+        PrefsUtils utils = PrefsUtils.getInstance();
+
+        String organizationId = utils.getOrganizationId();
+        if (!organizationId.equals("NULL")) {
+            service.GetOrganizationDevices(organizationId).enqueue(new Callback<DeviceResponse>() {
+                @Override
+                public void onResponse(Call<DeviceResponse> call, Response<DeviceResponse> response) {
+                    DeviceResponse body = response.body();
+                    if (body != null) {
+                        List<Device> devices = new ArrayList<>();
+                        devices.addAll(body.getTaken());
+                        devices.addAll(body.getAvailable());
+
+                        adapter.setItems(devices);
+                    } else {
+                        Log.e(RestApi.TAG_EXT, "Items response is null!");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DeviceResponse> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 }

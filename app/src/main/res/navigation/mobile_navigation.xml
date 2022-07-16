@@ -9,11 +9,15 @@
         android:id="@+id/navigation_devices"
         android:name="com.nure.greeneryapp.ui.devices.DevicesFragment"
         android:label="@string/title_devices"
+        app:popUpTo="@id/navigation_profile"
+        app:popUpToSaveState="true"
         tools:layout="@layout/fragment_devices" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.nure.greeneryapp.ui.profile.ProfileFragment"
+        app:popUpTo="@id/navigation_devices"
+        app:popUpToSaveState="true"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 

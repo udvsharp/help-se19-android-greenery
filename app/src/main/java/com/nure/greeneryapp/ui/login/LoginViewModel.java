@@ -53,7 +53,8 @@ public class LoginViewModel extends ViewModel {
                 loginResult.setValue(new LoginResult(
                         new LoggedInUserView(
                                 body.getName(),
-                                body.getToken()
+                                body.getToken(),
+                                body.getOrganizationId()
                         )
                 ));
             }

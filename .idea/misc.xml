@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/dev/projects/nure/help-android/GreeneryApp/app/src/main/res/drawable/color_offline.xml" value="0.152" />
+        <entry key="..\:/dev/projects/nure/help-android/GreeneryApp/app/src/main/res/drawable/color_working.xml" value="0.152" />
         <entry key="..\:/dev/projects/nure/help-android/GreeneryApp/app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.198" />
         <entry key="..\:/dev/projects/nure/help-android/GreeneryApp/app/src/main/res/drawable/ic_baseline_perm_device_information_24.xml" value="0.198" />
         <entry key="..\:/dev/projects/nure/help-android/GreeneryApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.198" />

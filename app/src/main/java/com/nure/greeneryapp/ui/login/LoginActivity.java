@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         prefsUtils.saveToken(model.getToken());
+        prefsUtils.saveOrganization(model.getOrganizationId());
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         proceedToMainActivity();
     }

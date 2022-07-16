@@ -10,27 +10,146 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
-    app:cardCornerRadius="@dimen/card_radius">
+    app:cardCornerRadius="@dimen/card_radius"
+    tools:backgroundTint="@color/color_offline">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/text_margin"
+        android:paddingBottom="8dp">
 
         <TextView
-            android:id="@+id/plant_id"
+            android:id="@+id/device_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="4dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="PLANT_ID" />
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            tools:text="DEVICE_ID" />
 
         <TextView
-            android:id="@+id/plant_name"
+            android:id="@+id/species_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="PLANT_NAME" />
+            android:textColor="@android:color/white"
+            tools:text="SPECIES_NAME" />
+
+        <View
+            android:id="@+id/mainDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/co2_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="CO2 Level: CO2_LEVEL" />
+
+        <TextView
+            android:id="@+id/ground_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Ground Humidity: GROUND_HUMIDITY" />
+
+        <TextView
+            android:id="@+id/air_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Air Humidity: AIR_HUMIDITY" />
+
+        <TextView
+            android:id="@+id/air_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Air Temperature: AIR_TEMPERATURE" />
+
+        <TextView
+            android:id="@+id/light_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Light Level: LIGHT_LEVEL" />
+
+        <View
+            android:id="@+id/targetDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Target:"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/target_co2_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="CO2 Level: CO2_LEVEL" />
+
+        <TextView
+            android:id="@+id/target_ground_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Ground Humidity: GROUND_HUMIDITY" />
+
+        <TextView
+            android:id="@+id/target_air_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Air Humidity: AIR_HUMIDITY" />
+
+        <TextView
+            android:id="@+id/target_air_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Air Temperature: AIR_TEMPERATURE" />
+
+        <TextView
+            android:id="@+id/target_light_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@android:color/white"
+            tools:text="Light Level: LIGHT_LEVEL" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
